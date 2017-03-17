@@ -1,0 +1,12 @@
+SELECT customer.name AS Clinic,  so.num AS SONum,  product.num AS ProductNum, trackinginfo.info AS Lot, soitem.qtyfulfilled AS Qty,
+soitem.unitprice AS UnitPrice
+
+FROM customer INNER JOIN so ON customer.id=so.customerid
+              LEFT JOIN soitem ON so.id=soitem.soid
+              LEFT JOIN product ON soitem.productid=product.id
+              INNER JOIN part ON product.partid=part.id
+              LEFT JOIN parttotracking ON part.id=parttotracking.partid
+              LEFT JOIN parttracking ON parttotracking.parttrackingid=parttracking.id
+              LEFT JOIN trackinginfo ON parttracking.id=trackinginfo.parttrackingid
+              
+WHERE customer.name LIKE '%paragon%'
